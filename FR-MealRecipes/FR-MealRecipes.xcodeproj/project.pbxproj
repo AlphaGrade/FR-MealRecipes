@@ -14,6 +14,7 @@
 		11B77D0E26DD585E0080F6FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11B77D0D26DD585E0080F6FB /* Assets.xcassets */; };
 		11B77D1126DD585E0080F6FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B77D0F26DD585E0080F6FB /* LaunchScreen.storyboard */; };
 		11B77D1E26DD595C0080F6FB /* MealListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D1D26DD595C0080F6FB /* MealListViewController.swift */; };
+		11B77D2126DD5C290080F6FB /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D2026DD5C290080F6FB /* APIController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		11B77D1026DD585E0080F6FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		11B77D1226DD585E0080F6FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11B77D1D26DD595C0080F6FB /* MealListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewController.swift; sourceTree = "<group>"; };
+		11B77D2026DD5C290080F6FB /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				11B77D1C26DD59460080F6FB /* Models */,
 				11B77D1B26DD593D0080F6FB /* Views */,
 				11B77D1A26DD59390080F6FB /* Controllers */,
+				11B77D1F26DD5BD80080F6FB /* Model Controllers */,
 				11B77D1926DD59330080F6FB /* Helpers */,
 				11B77D1826DD592A0080F6FB /* Resources */,
 				11B77D0126DD585A0080F6FB /* AppDelegate.swift */,
@@ -108,6 +111,14 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		11B77D1F26DD5BD80080F6FB /* Model Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				11B77D2026DD5C290080F6FB /* APIController.swift */,
+			);
+			path = "Model Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,6 +195,7 @@
 				11B77D1E26DD595C0080F6FB /* MealListViewController.swift in Sources */,
 				11B77D0226DD585A0080F6FB /* AppDelegate.swift in Sources */,
 				11B77D0426DD585A0080F6FB /* SceneDelegate.swift in Sources */,
+				11B77D2126DD5C290080F6FB /* APIController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
