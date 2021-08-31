@@ -7,9 +7,9 @@
         <attribute name="strCategoryThumb" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Meal" representedClassName="Meal" syncable="YES" codeGenerationType="class">
-        <attribute name="idMeal" attributeType="String"/>
-        <attribute name="strMeal" attributeType="String"/>
-        <attribute name="strMealThumb" attributeType="String"/>
+        <attribute name="idMeal" optional="YES" attributeType="String"/>
+        <attribute name="strMeal" optional="YES" attributeType="String"/>
+        <attribute name="strMealThumb" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Meal" positionX="-63" positionY="-18" width="128" height="74"/>

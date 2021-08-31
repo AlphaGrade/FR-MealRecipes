@@ -8,6 +8,14 @@ import CoreData
 import Foundation
 
 extension Meal {
+    
+    var mealRepresentation: MealRepresentation? {
+        guard let idMeal = idMeal else { return nil }
+        return MealRepresentation(strMeal: strMeal ?? "N/A",
+                                  strMealThumb: strMealThumb ?? "N/A",
+                                  idMeal: idMeal)
+    }
+    
     @discardableResult convenience init(context: NSManagedObjectContext = CoreDataStack.shared.mainContext,
                                         strMealThumb: String,
                                         strMeal: String,
@@ -16,5 +24,12 @@ extension Meal {
         self.strMealThumb = strMealThumb
         self.strMeal = strMeal
         self.idMeal = idMeal
+    }
+    
+    @discardableResult convenience init?(mealRepresentation: MealRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.init(context: context,
+                  strMealThumb: mealRepresentation.strMealThumb,
+                  strMeal: mealRepresentation.strMeal,
+                  idMeal: mealRepresentation.idMeal)
     }
 }
