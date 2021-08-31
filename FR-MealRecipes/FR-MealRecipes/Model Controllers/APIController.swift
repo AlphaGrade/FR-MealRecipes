@@ -17,7 +17,7 @@ enum HTTPMethod: String {
 let baseURL = URL(string: "https://www.themealdb.com/api.php")!
 
 class APIController {
-    var coins = [CoinRepresentation]()
+    var categories = [CategoryRepresentation]()
 //    init() {
 //     fetchCoins()
 //    }
@@ -26,7 +26,8 @@ class APIController {
     
     let request = URLRequest(url: baseURL)
     
-    func fetchCoins(completion: @escaping ([CoinRepresentation]) -> Void = { _ in }) {
+    func fetchCategories(completion: @escaping ([CategoryRepresentation]) -> Void = { _ in }) {
+        
         let request = URLRequest(url: baseURL)
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let error = error {
@@ -38,10 +39,10 @@ class APIController {
                 return
             }
             do {
-                let coins = try JSONDecoder().decode([CoinRepresentation].self, from: data)
-                self.coins = coins
-                print(coins.count)
-                completion(coins)
+                let meals = try JSONDecoder().decode([CategoryRepresentation].self, from: data)
+                self.categories = categories
+                print(meals.count)
+                completion(meals)
             } catch {
                 print("Unable to decode data: \(error)")
                 return

@@ -4,10 +4,12 @@
 //
 //  Created by Joe on 8/30/21.
 //
-
+import CoreData
 import UIKit
 
 class MealListViewController: UIViewController {
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +20,7 @@ class MealListViewController: UIViewController {
 
 extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 
+        return
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
