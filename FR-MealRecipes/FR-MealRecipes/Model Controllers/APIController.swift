@@ -18,6 +18,7 @@ let baseURL = URL(string: "https://www.themealdb.com/api.php")!
 
 class APIController {
     var categories = [CategoryRepresentation]()
+    var meals = [MealRepresentation]()
 //    init() {
 //     fetchCoins()
 //    }
@@ -39,8 +40,32 @@ class APIController {
                 return
             }
             do {
-                let meals = try JSONDecoder().decode([CategoryRepresentation].self, from: data)
+                let categories = try JSONDecoder().decode([CategoryRepresentation].self, from: data)
                 self.categories = categories
+                completion(categories)
+            } catch {
+                print("Unable to decode data: \(error)")
+                return
+            }
+
+        }.resume()
+    }
+    
+    func fetchMeals(completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
+        
+        let request = URLRequest(url: baseURL)
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            if let error = error {
+                print("There was an error: \(error)")
+                return
+            }
+            guard let data = data else {
+                print("No data returned")
+                return
+            }
+            do {
+                let meals = try JSONDecoder().decode([MealRepresentation].self, from: data)
+                self.meals = meals
                 print(meals.count)
                 completion(meals)
             } catch {
