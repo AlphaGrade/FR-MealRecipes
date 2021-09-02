@@ -32,15 +32,9 @@ class MealListViewController: UIViewController, NSFetchedResultsControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Meal List"
-        let group = DispatchGroup()
-        group.enter()
-        apiController.fetchCategories()
-        group.leave()
-        group.enter()
-        for category in apiController.fetchedCategories {
-            apiController.fetchMeals(category: category)
+        apiController.fetchCategories { _ in
+            self.apiController.fetchMeals(category: self.apiController.fetchedCategories)
         }
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {

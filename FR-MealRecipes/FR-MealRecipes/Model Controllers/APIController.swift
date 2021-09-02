@@ -90,28 +90,31 @@ class APIController {
         try? CoreDataStack.shared.save(context: context)
     }
     
-    func fetchMeals(category: String, completion: @escaping (MealRepresentations) -> Void = { _ in }) {
-        let url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category
-        let requestURL = URL(string: url)!
-            let request = URLRequest(url: requestURL)
-            URLSession.shared.dataTask(with: request) { data, _, error in
-                if let error = error {
-                    print("There was an error: \(error)")
-                    return
-                }
-                guard let data = data else {
-                    print("No data returned")
-                    return
-                }
-                do {
-                    let meals = try JSONDecoder().decode(MealRepresentations.self, from: data).meals
-                    try self.updateMeals(with: meals)
-                } catch {
-                    print("Unable to decode data: \(error)")
-                    return
-                }
+    func fetchMeals(category: [String], completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
+        for category in category {
+            let url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category
+            let requestURL = URL(string: url)!
+                let request = URLRequest(url: requestURL)
+                URLSession.shared.dataTask(with: request) { data, _, error in
+                    if let error = error {
+                        print("There was an error: \(error)")
+                        return
+                    }
+                    guard let data = data else {
+                        print("No data returned")
+                        return
+                    }
+                    do {
+                        let meals = try JSONDecoder().decode(MealRepresentations.self, from: data).meals
+                        try self.updateMeals(with: meals)
+                        completion(meals)
+                    } catch {
+                        print("Unable to decode data: \(error)")
+                        return
+                    }
 
-            }.resume()
+                }.resume()
+            }
     }
     
     func updateMeals(with mealRepresentations: [MealRepresentation]) throws {
