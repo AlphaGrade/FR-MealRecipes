@@ -9,6 +9,7 @@ import Foundation
 
 class CoreDataController {
     let apiController = APIController()
+    
     func fetchCategories() {
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let moc = CoreDataStack.shared.mainContext

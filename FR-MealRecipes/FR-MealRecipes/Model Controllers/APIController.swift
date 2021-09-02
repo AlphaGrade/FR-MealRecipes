@@ -22,12 +22,12 @@ class APIController {
 //     fetchCoins()
 //    }
     typealias CompletionHandler = (Error?) -> Void
-
+    var fetchedCategories: [String] = []
     
     let request = URLRequest(url: baseURL)
     
     func fetchCategories(completion: @escaping ([CategoryRepresentation]) -> Void = { _ in }) {
-        let requestURL = baseURL.appendingPathExtension("api/json/v1/1/categories.php")
+        let requestURL = baseURL.appendingPathComponent("api/json/v1/1/categories.php")
         let request = URLRequest(url: requestURL)
         URLSession.shared.dataTask(with: request) { data, _, error in
             if let error = error {
@@ -39,7 +39,10 @@ class APIController {
                 return
             }
             do {
-                let categories = try JSONDecoder().decode([CategoryRepresentation].self, from: data)
+                let categories = try JSONDecoder().decode(CategoryRepresentations.self, from: data).categories
+                for category in categories {
+                    self.fetchedCategories.append(category.strCategory)
+                }
                 try self.updateCategories(with: categories)
                 completion(categories)
             } catch {
@@ -59,7 +62,7 @@ class APIController {
         let entriesToCreate = representationByID
         
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "idCategory IN %@")
+        fetchRequest.predicate = NSPredicate(format: "idCategory IN %@", identfiersToFetch)
         
         let context = CoreDataStack.shared.container.newBackgroundContext()
         
@@ -87,9 +90,9 @@ class APIController {
         try? CoreDataStack.shared.save(context: context)
     }
     
-    func fetchMeals(categories: [String], completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
-        for category in categories {
-            let requestURL = baseURL.appendingPathExtension(category)
+    func fetchMeals(category: String, completion: @escaping (MealRepresentations) -> Void = { _ in }) {
+        let url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + category
+        let requestURL = URL(string: url)!
             let request = URLRequest(url: requestURL)
             URLSession.shared.dataTask(with: request) { data, _, error in
                 if let error = error {
@@ -101,16 +104,14 @@ class APIController {
                     return
                 }
                 do {
-                    let meals = try JSONDecoder().decode([MealRepresentation].self, from: data)
+                    let meals = try JSONDecoder().decode(MealRepresentations.self, from: data).meals
                     try self.updateMeals(with: meals)
-                    completion(meals)
                 } catch {
                     print("Unable to decode data: \(error)")
                     return
                 }
 
             }.resume()
-        }
     }
     
     func updateMeals(with mealRepresentations: [MealRepresentation]) throws {
@@ -122,7 +123,7 @@ class APIController {
         var entriesToCreate = representationByID
         
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "idMeal IN %@")
+        fetchRequest.predicate = NSPredicate(format: "idMeal IN %@", identfiersToFetch)
         
         let context = CoreDataStack.shared.container.newBackgroundContext()
         

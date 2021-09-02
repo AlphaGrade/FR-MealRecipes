@@ -12,7 +12,7 @@ struct CategoryRepresentations: Codable {
 }
 
 // MARK: - Category
-struct CategoryRepresentation: Codable {
+struct CategoryRepresentation: Equatable, Codable {
     let idCategory, strCategory: String
     let strCategoryThumb: String
     let strCategoryDescription: String

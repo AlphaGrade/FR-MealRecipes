@@ -32,7 +32,15 @@ class MealListViewController: UIViewController, NSFetchedResultsControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Meal List"
+        let group = DispatchGroup()
+        group.enter()
         apiController.fetchCategories()
+        group.leave()
+        group.enter()
+        for category in apiController.fetchedCategories {
+            apiController.fetchMeals(category: category)
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -52,7 +60,9 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath)
         
+        return cell
     }
     
     
