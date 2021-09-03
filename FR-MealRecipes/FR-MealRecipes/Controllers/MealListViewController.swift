@@ -11,10 +11,25 @@ class MealListViewController: UIViewController {
     
     let apiController = APIController()
     let coreDataController = CoreDataController()
-    let searchBar = UISearchBar()
+    lazy var searchBar: UISearchBar = {
+        let bar = UISearchBar()
+        view.addSubview(bar)
+        bar.translatesAutoresizingMaskIntoConstraints = false
+        bar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        bar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
+        bar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        return bar
+    }()
     lazy var tableView: UITableView = {
         let tableView = UITableView()
-        
+        view.addSubview(tableView)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+//        let frame = CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MealCell")
+        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 0).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         return tableView
     }()
     
