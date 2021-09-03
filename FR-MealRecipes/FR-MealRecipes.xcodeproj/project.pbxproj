@@ -21,6 +21,9 @@
 		11B77D2E26DE42080080F6FB /* Category+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D2D26DE42080080F6FB /* Category+Convenience.swift */; };
 		11B77D3026DE42A70080F6FB /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D2F26DE42A70080F6FB /* CoreDataStack.swift */; };
 		11B77D3426DE63290080F6FB /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D3326DE63290080F6FB /* CoreDataController.swift */; };
+		11B77D3626E257500080F6FB /* MealListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D3526E257500080F6FB /* MealListTableViewCell.swift */; };
+		11B77D3826E25F6F0080F6FB /* ImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D3726E25F6F0080F6FB /* ImageViewHelper.swift */; };
+		11B77D3A26E260C70080F6FB /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D3926E260C70080F6FB /* AlertHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		11B77D2D26DE42080080F6FB /* Category+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+Convenience.swift"; sourceTree = "<group>"; };
 		11B77D2F26DE42A70080F6FB /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		11B77D3326DE63290080F6FB /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		11B77D3526E257500080F6FB /* MealListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListTableViewCell.swift; sourceTree = "<group>"; };
+		11B77D3726E25F6F0080F6FB /* ImageViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewHelper.swift; sourceTree = "<group>"; };
+		11B77D3926E260C70080F6FB /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,8 @@
 		11B77D1926DD59330080F6FB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				11B77D3726E25F6F0080F6FB /* ImageViewHelper.swift */,
+				11B77D3926E260C70080F6FB /* AlertHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -114,6 +122,7 @@
 		11B77D1B26DD593D0080F6FB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				11B77D3526E257500080F6FB /* MealListTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -209,9 +218,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B77D3626E257500080F6FB /* MealListTableViewCell.swift in Sources */,
 				11B77D2C26DE41FE0080F6FB /* Meal+Convenience.swift in Sources */,
 				11B77D2926DE39D20080F6FB /* CategoryRepresentation.swift in Sources */,
 				11B77D0C26DD585B0080F6FB /* FR_MealRecipes.xcdatamodeld in Sources */,
+				11B77D3A26E260C70080F6FB /* AlertHelper.swift in Sources */,
+				11B77D3826E25F6F0080F6FB /* ImageViewHelper.swift in Sources */,
 				11B77D1E26DD595C0080F6FB /* MealListViewController.swift in Sources */,
 				11B77D0226DD585A0080F6FB /* AppDelegate.swift in Sources */,
 				11B77D3026DE42A70080F6FB /* CoreDataStack.swift in Sources */,
