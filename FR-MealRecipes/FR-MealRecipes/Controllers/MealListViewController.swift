@@ -24,7 +24,6 @@ class MealListViewController: UIViewController {
         let tableView = UITableView()
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//        let frame = CGRect(x: <#T##CGFloat#>, y: <#T##CGFloat#>, width: <#T##CGFloat#>, height: <#T##CGFloat#>)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MealCell")
         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -48,18 +47,44 @@ class MealListViewController: UIViewController {
         try? frc.performFetch()
         return frc
     }()
+    
+    private lazy var fetchedCategoriesResultsController: NSFetchedResultsController<Category> = {
+        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "strCategory", ascending: true)
+        ]
+        let moc = CoreDataStack.shared.mainContext
+        let frc = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: moc,
+            sectionNameKeyPath: "strCategory",
+            cacheName: nil)
+        frc.delegate = self
+        try? frc.performFetch()
+        return frc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Meal List"
+//        coreDataController.deleteAll(entityName: "Meal")
+//        coreDataController.deleteAll(entityName: "Category")
         apiController.fetchCategories { _ in
             self.apiController.fetchMeals(category: self.apiController.fetchedCategories)
         }
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    func segueToNextScreen() {
+        if let mealDetailViewController = navigationController?.viewControllers.first as? MealDetailViewController {
+            rootVC.user = user
+        }
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -74,11 +99,21 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath) as? MealListTableViewCell else { return UITableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath)
         let meal = fetchedResultsController.object(at: indexPath)
-        cell.meal = meal
+        cell.textLabel?.text = meal.strMeal
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
+    
+        return sectionInfo.indexTitle
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
 

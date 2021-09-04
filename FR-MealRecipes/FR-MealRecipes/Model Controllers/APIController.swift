@@ -106,7 +106,7 @@ class APIController {
                     }
                     do {
                         let meals = try JSONDecoder().decode(MealRepresentations.self, from: data).meals
-                        try self.updateMeals(with: meals)
+                        try self.updateMeals(category: category, with: meals)
                         completion(meals)
                     } catch {
                         print("Unable to decode data: \(error)")
@@ -117,8 +117,8 @@ class APIController {
             }
     }
     
-    func updateMeals(with mealRepresentations: [MealRepresentation]) throws {
-        let entriesWithID = mealRepresentations.filter{( $0.idMeal != nil)}
+    func updateMeals(category: String, with mealRepresentations: [MealRepresentation]) throws {
+        let entriesWithID = mealRepresentations.filter{( $0.idMeal != nil )}
         let identfiersToFetch = entriesWithID.compactMap({ $0.idMeal })
         
         let representationByID = Dictionary(uniqueKeysWithValues: zip(identfiersToFetch,
@@ -144,7 +144,10 @@ class APIController {
                     entry.strMealThumb = representation.strMealThumb
                 }
                 for representation in entriesToCreate.values {
-                    Meal(mealRepresentation: representation, context: context)
+                    let meal = Meal(context: context, strMealThumb: representation.strMealThumb, strMeal: representation.strMeal, idMeal: representation.idMeal)
+                    meal.category?.strCategory = category
+
+//                    Meal(mealRepresentation: representation, context: context)
                 }
             } catch {
                 print("Error fetching: \(error)")
@@ -152,6 +155,10 @@ class APIController {
         }
         // Persist all changes to Core Data
         try? CoreDataStack.shared.save(context: context)
+    }
+    
+    func fetchSearchedMeal(meal: String, completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
+        
     }
     
     //Delete

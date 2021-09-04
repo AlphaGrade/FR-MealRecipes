@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11408BFC26E2CD20001E74A0 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11408BFB26E2CD20001E74A0 /* MealDetailViewController.swift */; };
 		11B77D0226DD585A0080F6FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D0126DD585A0080F6FB /* AppDelegate.swift */; };
 		11B77D0426DD585A0080F6FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D0326DD585A0080F6FB /* SceneDelegate.swift */; };
-		11B77D0926DD585A0080F6FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B77D0726DD585A0080F6FB /* Main.storyboard */; };
 		11B77D0C26DD585B0080F6FB /* FR_MealRecipes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D0A26DD585B0080F6FB /* FR_MealRecipes.xcdatamodeld */; };
 		11B77D0E26DD585E0080F6FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11B77D0D26DD585E0080F6FB /* Assets.xcassets */; };
 		11B77D1126DD585E0080F6FB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11B77D0F26DD585E0080F6FB /* LaunchScreen.storyboard */; };
@@ -27,10 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		11408BFB26E2CD20001E74A0 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		11B77CFE26DD585A0080F6FB /* FR-MealRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FR-MealRecipes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B77D0126DD585A0080F6FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		11B77D0326DD585A0080F6FB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		11B77D0826DD585A0080F6FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		11B77D0B26DD585B0080F6FB /* FR_MealRecipes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FR_MealRecipes.xcdatamodel; sourceTree = "<group>"; };
 		11B77D0D26DD585E0080F6FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		11B77D1026DD585E0080F6FB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,7 +86,6 @@
 				11B77D1826DD592A0080F6FB /* Resources */,
 				11B77D0126DD585A0080F6FB /* AppDelegate.swift */,
 				11B77D0326DD585A0080F6FB /* SceneDelegate.swift */,
-				11B77D0726DD585A0080F6FB /* Main.storyboard */,
 				11B77D0D26DD585E0080F6FB /* Assets.xcassets */,
 				11B77D0F26DD585E0080F6FB /* LaunchScreen.storyboard */,
 				11B77D1226DD585E0080F6FB /* Info.plist */,
@@ -115,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				11B77D1D26DD595C0080F6FB /* MealListViewController.swift */,
+				11408BFB26E2CD20001E74A0 /* MealDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -207,7 +207,6 @@
 			files = (
 				11B77D1126DD585E0080F6FB /* LaunchScreen.storyboard in Resources */,
 				11B77D0E26DD585E0080F6FB /* Assets.xcassets in Resources */,
-				11B77D0926DD585A0080F6FB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +225,7 @@
 				11B77D3826E25F6F0080F6FB /* ImageViewHelper.swift in Sources */,
 				11B77D1E26DD595C0080F6FB /* MealListViewController.swift in Sources */,
 				11B77D0226DD585A0080F6FB /* AppDelegate.swift in Sources */,
+				11408BFC26E2CD20001E74A0 /* MealDetailViewController.swift in Sources */,
 				11B77D3026DE42A70080F6FB /* CoreDataStack.swift in Sources */,
 				11B77D3426DE63290080F6FB /* CoreDataController.swift in Sources */,
 				11B77D0426DD585A0080F6FB /* SceneDelegate.swift in Sources */,
@@ -238,14 +238,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		11B77D0726DD585A0080F6FB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				11B77D0826DD585A0080F6FB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		11B77D0F26DD585E0080F6FB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
