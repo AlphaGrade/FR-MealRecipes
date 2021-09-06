@@ -67,10 +67,11 @@ class MealListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Meal List"
-//        coreDataController.deleteAll(entityName: "Meal")
-//        coreDataController.deleteAll(entityName: "Category")
         apiController.fetchCategories { _ in
             self.apiController.fetchMeals(category: self.apiController.fetchedCategories)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -80,12 +81,12 @@ class MealListViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-    func segueToNextScreen() {
-        if let mealDetailViewController = navigationController?.viewControllers.first as? MealDetailViewController {
-            rootVC.user = user
-        }
-        navigationController?.popToRootViewController(animated: true)
-    }
+//    func segueToNextScreen() {
+//        if let mealDetailViewController = navigationController?.viewControllers.first as? MealDetailViewController {
+//            rootVC.user = user
+//        }
+//        navigationController?.popToRootViewController(animated: true)
+//    }
 }
 
 

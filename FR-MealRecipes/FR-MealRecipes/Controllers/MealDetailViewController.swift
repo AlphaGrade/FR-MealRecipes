@@ -15,21 +15,27 @@ class MealDetailViewController: UIViewController {
     // view variables
     lazy var mealNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: , size: 25)
+        label.font = UIFont(name: "Avenue", size: 25)
+        
+        return label
+    }()
+    lazy var stackView: UIStackView = {
+        
     }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
+        guard let mealID = meal?.idMeal else { return }
+        apiController.searchMeals(meal: mealID) { MealRepresentation in
+            self.updateViews()
+        }
+        
     }
     
     private func updateViews() {
-        guard let meal = meal else { return }
-        guard let mealID = meal.idMeal else { return }
-        apiController.fetchSearchedMeal(meal: mealID) { _ in
-            
-        }
+       guard let meal = apiController.fetchedMeal else { return }
+        
         
     }
 

@@ -18,12 +18,9 @@ let baseURL = URL(string: "https://www.themealdb.com/")!
 
 class APIController {
     
-//    init() {
-//     fetchCoins()
-//    }
     typealias CompletionHandler = (Error?) -> Void
     var fetchedCategories: [String] = []
-    
+    var fetchedMeal: MealRepresentation?
     let request = URLRequest(url: baseURL)
     
     func fetchCategories(completion: @escaping ([CategoryRepresentation]) -> Void = { _ in }) {
@@ -59,7 +56,7 @@ class APIController {
         
         let representationByID = Dictionary(uniqueKeysWithValues: zip(identfiersToFetch,
                                                                        entriesWithID))
-        let entriesToCreate = representationByID
+        var entriesToCreate = representationByID
         
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "idCategory IN %@", identfiersToFetch)
@@ -78,6 +75,7 @@ class APIController {
                     entry.strCategory = representation.strCategory
                     entry.strCategoryThumb = representation.strCategoryThumb
                     entry.strCategoryDescription = representation.strCategoryDescription
+                    entriesToCreate.removeValue(forKey: id)
                 }
                 for representation in entriesToCreate.values {
                     Category(categoryRepresentation: representation, context: context)
@@ -117,12 +115,38 @@ class APIController {
             }
     }
     
+    func searchMeals(meal: String, completion: @escaping (MealRepresentation) -> Void = { _ in }) {
+            let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + meal
+            let requestURL = URL(string: url)!
+                let request = URLRequest(url: requestURL)
+                URLSession.shared.dataTask(with: request) { data, _, error in
+                    if let error = error {
+                        print("There was an error: \(error)")
+                        return
+                    }
+                    guard let data = data else {
+                        print("No data returned")
+                        return
+                    }
+                    do {
+                        let meal = try JSONDecoder().decode(MealRepresentation.self, from: data)
+                        self.fetchedMeal = meal
+                        completion(meal)
+                    } catch {
+                        print("Unable to decode data: \(error)")
+                        return
+                    }
+
+                }.resume()
+    
+    }
+    
     func updateMeals(category: String, with mealRepresentations: [MealRepresentation]) throws {
         let entriesWithID = mealRepresentations.filter{( $0.idMeal != nil )}
-        let identfiersToFetch = entriesWithID.compactMap({ $0.idMeal })
+        let identfiersToFetch = mealRepresentations.compactMap({ $0.idMeal })
         
         let representationByID = Dictionary(uniqueKeysWithValues: zip(identfiersToFetch,
-                                                                       entriesWithID))
+                                                                      entriesWithID))
         var entriesToCreate = representationByID
         
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
@@ -142,12 +166,12 @@ class APIController {
                     
                     entry.strMeal = representation.strMeal
                     entry.strMealThumb = representation.strMealThumb
+                    entriesToCreate.removeValue(forKey: id)
                 }
                 for representation in entriesToCreate.values {
-                    let meal = Meal(context: context, strMealThumb: representation.strMealThumb, strMeal: representation.strMeal, idMeal: representation.idMeal)
-                    meal.category?.strCategory = category
-
-//                    Meal(mealRepresentation: representation, context: context)
+                    _ = Meal(context: context, strMealThumb: representation.strMealThumb,
+                                    strMeal: representation.strMeal,
+                                    idMeal: representation.idMeal)
                 }
             } catch {
                 print("Error fetching: \(error)")
@@ -156,26 +180,5 @@ class APIController {
         // Persist all changes to Core Data
         try? CoreDataStack.shared.save(context: context)
     }
-    
-    func fetchSearchedMeal(meal: String, completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
-        
-    }
-    
-    //Delete
-    func deleteSavedFavorite(_ meal: Meal, completion: @escaping CompletionHandler = { _ in }) {
-        guard let uuid =  meal.idMeal else {
-             completion(NSError())
-             return
-         }
-         
-         let requestURL = baseURL.appendingPathComponent(uuid).appendingPathExtension("json")
-         var request = URLRequest(url: requestURL)
-         request.httpMethod = "DELETE"
-         
-         URLSession.shared.dataTask(with: request) { (_, _, error) in
-          
-             completion(nil)
-         }.resume()
-     }
 }
 

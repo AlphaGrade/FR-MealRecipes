@@ -14,7 +14,7 @@ class CoreDataController {
         let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
         let moc = CoreDataStack.shared.mainContext
         do {
-            let categories = try? moc.fetch(fetchRequest)
+            _ = try? moc.fetch(fetchRequest)
         } catch {
             print("Error Fetching Categories: \(error)")
         }
@@ -45,17 +45,5 @@ class CoreDataController {
     func delete(meal: Meal) {
         let moc = CoreDataStack.shared.mainContext
         moc.delete(meal)
-        apiController.deleteSavedFavorite(meal)
     }
-    // Method Credit: https://stackoverflow.com/questions/24658641/ios-delete-all-core-data-swift
-    func deleteAll(entityName: String) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
-        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-        let moc = CoreDataStack.shared.mainContext
-                do {
-                    try moc.execute(batchDeleteRequest)
-                } catch {
-                    print("Detele all data in \(entityName) error :", error)
-                }
-            }
 }
