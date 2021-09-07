@@ -81,12 +81,12 @@ class MealListViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
-//    func segueToNextScreen() {
-//        if let mealDetailViewController = navigationController?.viewControllers.first as? MealDetailViewController {
-//            rootVC.user = user
-//        }
-//        navigationController?.popToRootViewController(animated: true)
-//    }
+    func segueToNextScreen(indexPath: IndexPath) {
+        let mealDetailViewController = MealDetailViewController()
+        mealDetailViewController.meal = fetchedResultsController.object(at: indexPath)
+
+        navigationController?.pushViewController(mealDetailViewController, animated: true)
+    }
 }
 
 
@@ -114,7 +114,7 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        segueToNextScreen(indexPath: indexPath)
     }
 }
 
