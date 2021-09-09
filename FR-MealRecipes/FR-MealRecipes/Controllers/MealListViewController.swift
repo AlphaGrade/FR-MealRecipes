@@ -20,6 +20,11 @@ class MealListViewController: UIViewController {
         bar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         return bar
     }()
+    var fetchPredicate : NSPredicate? {
+        didSet {
+            fetchedResultsController.fetchRequest.predicate = fetchPredicate
+        }
+    }
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         view.addSubview(tableView)
@@ -34,6 +39,7 @@ class MealListViewController: UIViewController {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Meal> = {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
+        fetchRequest.predicate = self.fetchPredicate
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "strMeal", ascending: true)
         ]
@@ -66,6 +72,7 @@ class MealListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchBar.delegate = self
         self.title = "Meal List"
         apiController.fetchCategories { _ in
             self.apiController.fetchMeals(category: self.apiController.fetchedCategories)
@@ -161,6 +168,37 @@ extension MealListViewController: NSFetchedResultsControllerDelegate {
             case .delete:
                 tableView.deleteSections(sectionSet, with: .automatic)
         default: return
+        }
+    }
+}
+
+extension MealListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == "" {
+            searchBarCancelButtonClicked(searchBar)
+        } else {
+            let filter = searchBar.text
+            self.fetchPredicate = NSPredicate(format: "strMeal CONTAINS %@", filter!)
+            do {
+                try fetchedResultsController.performFetch()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("There was an error fetching: \(error)")
+            }
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.fetchPredicate = nil
+        do {
+            try fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch {
+            print("There was an error fetching: \(error)")
         }
     }
 }
