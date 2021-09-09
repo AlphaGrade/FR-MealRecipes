@@ -20,7 +20,7 @@ class APIController {
     
     typealias CompletionHandler = (Error?) -> Void
     var fetchedCategories: [String] = []
-    var fetchedMeal: MealRepresentation?
+    var fetchedMeal: [MealRepresentation]?
     let request = URLRequest(url: baseURL)
     
     func fetchCategories(completion: @escaping ([CategoryRepresentation]) -> Void = { _ in }) {
@@ -115,8 +115,8 @@ class APIController {
             }
     }
     
-    func searchMeals(meal: String, completion: @escaping (MealRepresentation) -> Void = { _ in }) {
-            let url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + meal
+    func searchMeals(meal: String, completion: @escaping ([MealRepresentation]) -> Void = { _ in }) {
+            let url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + meal
             let requestURL = URL(string: url)!
                 let request = URLRequest(url: requestURL)
                 URLSession.shared.dataTask(with: request) { data, _, error in
@@ -129,7 +129,7 @@ class APIController {
                         return
                     }
                     do {
-                        let meal = try JSONDecoder().decode(MealRepresentation.self, from: data)
+                        let meal = try JSONDecoder().decode(MealRepresentations.self, from: data).meals
                         self.fetchedMeal = meal
                         completion(meal)
                     } catch {

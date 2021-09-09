@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UITableViewCell {
+extension UIViewController {
     func displayURLImage(url: String) -> UIImage {
         let imageURL = URL(string: url)!
         let data = try? Data(contentsOf: imageURL)

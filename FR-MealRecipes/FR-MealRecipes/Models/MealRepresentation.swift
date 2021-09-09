@@ -13,13 +13,13 @@ struct MealRepresentations: Codable {
 
 // MARK: - Meal
 struct MealRepresentation: Equatable, Codable {
-    let strMeal: String?
-    let strMealThumb: String?
     let idMeal: String?
+    let strMeal: String?
     let strDrinkAlternate: String?
     let strCategory: String?
     let strArea: String?
     let strInstructions: String?
+    let strMealThumb: String?
     let strTags: String?
     let strYoutube: String?
     let strIngredient1: String?
