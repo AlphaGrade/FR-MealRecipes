@@ -10,7 +10,6 @@ import UIKit
 class MealListViewController: UIViewController {
     
     let apiController = APIController()
-    let coreDataController = CoreDataController()
     lazy var searchBar: UISearchBar = {
         let bar = UISearchBar()
         view.addSubview(bar)
@@ -53,32 +52,21 @@ class MealListViewController: UIViewController {
         try? frc.performFetch()
         return frc
     }()
-    
-    private lazy var fetchedCategoriesResultsController: NSFetchedResultsController<Category> = {
-        let fetchRequest: NSFetchRequest<Category> = Category.fetchRequest()
-        fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "strCategory", ascending: true)
-        ]
-        let moc = CoreDataStack.shared.mainContext
-        let frc = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: moc,
-            sectionNameKeyPath: "strCategory",
-            cacheName: nil)
-        frc.delegate = self
-        try? frc.performFetch()
-        return frc
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         self.title = "Meal List"
         apiController.fetchCategories { _ in
-            self.apiController.fetchMeals(category: self.apiController.fetchedCategories)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            self.apiController.fetchMeals(category: self.apiController.fetchedCategories) { _ in
+                self.apiController.fetchFullMealInfo(meals: self.apiController.fetchedMeals) { _ in
+                    DispatchQueue.main.async {
+                        self.performFetch()
+                        self.tableView.reloadData()
+                    }
+                }
             }
+            
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -93,6 +81,16 @@ class MealListViewController: UIViewController {
         mealDetailViewController.meal = fetchedResultsController.object(at: indexPath)
 
         navigationController?.pushViewController(mealDetailViewController, animated: true)
+    }
+    func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch {
+            print("There was an error fetching: \(error)")
+        }
     }
 }
 
@@ -115,10 +113,16 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
-    
-        return sectionInfo.indexTitle
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let category = fetchedResultsController.object(at: indexPath)
+            return category.strCategory
+        }
+        return "Unknown"
     }
+    
+//    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+//
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         segueToNextScreen(indexPath: indexPath)
@@ -179,26 +183,12 @@ extension MealListViewController: UISearchBarDelegate {
         } else {
             let filter = searchBar.text
             self.fetchPredicate = NSPredicate(format: "strMeal CONTAINS %@", filter!)
-            do {
-                try fetchedResultsController.performFetch()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("There was an error fetching: \(error)")
-            }
+            performFetch()
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.fetchPredicate = nil
-        do {
-            try fetchedResultsController.performFetch()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        } catch {
-            print("There was an error fetching: \(error)")
-        }
+        performFetch()
     }
 }
