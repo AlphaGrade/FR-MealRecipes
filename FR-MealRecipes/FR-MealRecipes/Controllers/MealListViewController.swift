@@ -40,7 +40,7 @@ class MealListViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         fetchRequest.predicate = self.fetchPredicate
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "strCategory", ascending: true)
+            NSSortDescriptor(key: "strMeal", ascending: true)
         ]
         let moc = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(
