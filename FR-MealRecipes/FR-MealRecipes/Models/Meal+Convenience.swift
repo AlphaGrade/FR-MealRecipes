@@ -8,14 +8,7 @@ import CoreData
 import Foundation
 
 extension Meal {
-    
-//    var mealRepresentation: MealRepresentation? {
-//        return MealRepresentation(from: , strMeal: strMeal ?? "N/A",
-//                                  strMealThumb: strMealThumb ?? "N/A",
-//                                  idMeal: idMeal ?? "N/A",
-//                                  strDrinkAlternate: strDrinkAlternate ?? "N/A")
-//    }
-    
+
     @discardableResult convenience init(context: NSManagedObjectContext = CoreDataStack.shared.mainContext,
                                         strMealThumb: String?,
                                         strMeal: String?,

@@ -40,13 +40,13 @@ class MealListViewController: UIViewController {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         fetchRequest.predicate = self.fetchPredicate
         fetchRequest.sortDescriptors = [
-            NSSortDescriptor(key: "strMeal", ascending: true)
+            NSSortDescriptor(key: "strCategory", ascending: true)
         ]
         let moc = CoreDataStack.shared.mainContext
         let frc = NSFetchedResultsController(
             fetchRequest: fetchRequest,
             managedObjectContext: moc,
-            sectionNameKeyPath: "strMeal",
+            sectionNameKeyPath: "strCategory",
             cacheName: nil)
         frc.delegate = self
         try? frc.performFetch()
@@ -113,16 +113,11 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if let indexPath = tableView.indexPathForSelectedRow {
-            let category = fetchedResultsController.object(at: indexPath)
-            return category.strCategory
-        }
-        return "Unknown"
-    }
+        guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
     
-//    func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-//
-//    }
+        return sectionInfo.name
+        
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         segueToNextScreen(indexPath: indexPath)

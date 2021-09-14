@@ -16,9 +16,9 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
     // view variables
     lazy var mealNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 35)
+        label.font = UIFont.boldSystemFont(ofSize: 32)
         label.adjustsFontSizeToFitWidth = true
-//        label.numberOfLines = 2
+        label.numberOfLines = 2
         
         return label
     }()
