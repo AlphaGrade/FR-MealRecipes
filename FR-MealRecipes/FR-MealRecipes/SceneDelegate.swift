@@ -15,6 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         let mealListViewController = MealListViewController(nibName: nil, bundle: nil)
         let nav1 = UINavigationController(rootViewController: mealListViewController)
+        nav1.navigationBar.barTintColor = .systemRed
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

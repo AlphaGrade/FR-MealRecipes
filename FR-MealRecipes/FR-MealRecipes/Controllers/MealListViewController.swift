@@ -35,11 +35,11 @@ class MealListViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         return tableView
     }()
-    
     private lazy var fetchedResultsController: NSFetchedResultsController<Meal> = {
         let fetchRequest: NSFetchRequest<Meal> = Meal.fetchRequest()
         fetchRequest.predicate = self.fetchPredicate
         fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "strCategory", ascending: true),
             NSSortDescriptor(key: "strMeal", ascending: true)
         ]
         let moc = CoreDataStack.shared.mainContext
@@ -52,21 +52,20 @@ class MealListViewController: UIViewController {
         try? frc.performFetch()
         return frc
     }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
         self.title = "Meal List"
-        apiController.fetchCategories { _ in
-            self.apiController.fetchMeals(category: self.apiController.fetchedCategories) { _ in
-                self.apiController.fetchFullMealInfo(meals: self.apiController.fetchedMeals) { _ in
-                    DispatchQueue.main.async {
-                        self.performFetch()
-                        self.tableView.reloadData()
+        DispatchQueue.global(qos: .background).async {
+            self.apiController.fetchCategories { _ in
+                self.apiController.fetchMeals(category: self.apiController.fetchedCategories) { _ in
+                    self.apiController.fetchFullMealInfo(meals: self.apiController.fetchedMeals) { _ in
+                        DispatchQueue.global(qos: .default).async {
+                            self.performFetch()
+                        }
                     }
                 }
             }
-            
         }
         tableView.delegate = self
         tableView.dataSource = self
@@ -79,7 +78,6 @@ class MealListViewController: UIViewController {
     func segueToNextScreen(indexPath: IndexPath) {
         let mealDetailViewController = MealDetailViewController()
         mealDetailViewController.meal = fetchedResultsController.object(at: indexPath)
-
         navigationController?.pushViewController(mealDetailViewController, animated: true)
     }
     func performFetch() {
@@ -103,7 +101,6 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MealCell", for: indexPath)
         let meal = fetchedResultsController.object(at: indexPath)
@@ -111,14 +108,11 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
     
         return sectionInfo.name
-        
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         segueToNextScreen(indexPath: indexPath)
     }
@@ -181,7 +175,6 @@ extension MealListViewController: UISearchBarDelegate {
             performFetch()
         }
     }
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.fetchPredicate = nil
         performFetch()
