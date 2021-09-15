@@ -18,7 +18,7 @@ extension UIViewController {
         } catch {
             print("There was an error: \(error)")
             alertMessage(title: "Error Displaying Image", message: "There was an error pulling up image: \(error)")
-                return UIImage(named: "NotAvailable.png")!
+            return UIImage(named: "NotAvailable.png")!
         }
     }
 }

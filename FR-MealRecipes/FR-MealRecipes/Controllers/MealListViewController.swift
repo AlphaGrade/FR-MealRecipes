@@ -110,7 +110,7 @@ extension MealListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         guard let sectionInfo = fetchedResultsController.sections?[section] else { return nil }
-    
+        
         return sectionInfo.name
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -156,14 +156,15 @@ extension MealListViewController: NSFetchedResultsControllerDelegate {
                     for type: NSFetchedResultsChangeType) {
         let sectionSet = IndexSet(integer: sectionIndex)
         switch type {
-            case .insert:
-                tableView.insertSections(sectionSet, with: .automatic)
-            case .delete:
-                tableView.deleteSections(sectionSet, with: .automatic)
+        case .insert:
+            tableView.insertSections(sectionSet, with: .automatic)
+        case .delete:
+            tableView.deleteSections(sectionSet, with: .automatic)
         default: return
         }
     }
 }
+
 
 extension MealListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
