@@ -341,16 +341,16 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
-            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: 10),
-            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant:  -10),
+            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -10),
             self.stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            self.stackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            self.stackView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -5),
             self.mealNameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.strMealThumbImage.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.3),
             self.strMealThumbImage.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 0.8),
-            self.strInstructionsView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.3),
-            self.strInstructionsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 0.8),
+            self.strInstructionsView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.3),
+            self.strInstructionsView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
             self.strInstructionsView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
         ])
     }
