@@ -190,6 +190,8 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
         }
         if let youtube = fetchedMeal.strYoutube {
             if !youtube.isEmpty {
+                strYoutubeLabel.textColor = .systemBlue
+                self.stackView.addArrangedSubview(self.strYoutubeLabel)
                 strYoutubeLabel.isUserInteractionEnabled = true
                 tap.addTarget(self, action: #selector(launchYoutube))
                 strYoutubeLabel.addGestureRecognizer(tap)
