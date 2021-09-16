@@ -32,7 +32,7 @@ class APIController {
             do {
                 let categories = try JSONDecoder().decode(CategoryRepresentations.self, from: data).categories
                 for category in categories {
-                    self.fetchedCategories.append(category.strCategory)
+                    self.fetchedCategories.append(category.strCategory ?? "N/A")
                 }
                 try self.updateCategories(with: categories)
                 completion(categories)

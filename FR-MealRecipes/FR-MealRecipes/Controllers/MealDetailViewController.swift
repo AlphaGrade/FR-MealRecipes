@@ -28,7 +28,7 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.isScrollEnabled = true
-        scroll.backgroundColor = .lightGray
+        scroll.backgroundColor = .systemBackground
         
         return scroll
     }()
@@ -331,7 +331,7 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
             if !instructions.isEmpty {
                 self.stackView.addArrangedSubview(self.strInstructionsView)
                 self.strInstructionsView.text = instructions
-                self.strInstructionsView.backgroundColor = .lightGray
+                self.traitCollection.userInterfaceStyle == .dark ? (self.strInstructionsView.backgroundColor = .darkGray) : (self.strInstructionsView.backgroundColor = .lightGray)
                 strInstructionsView.font = UIFont.systemFont(ofSize: 18)
                 strInstructionsView.isEditable = false
             }
@@ -343,11 +343,11 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: 0),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
             self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
-            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
-            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  -10),
+            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0),
+            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant:  0),
             self.stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             self.stackView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -5),
+            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -10),
             self.mealNameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.strMealThumbImage.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.3),
             self.strMealThumbImage.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 0.8),

@@ -31,8 +31,8 @@ extension Category {
     
     @discardableResult convenience init?(categoryRepresentation: CategoryRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context,
-                  idCategory: categoryRepresentation.idCategory,
-                  strCategory: categoryRepresentation.strCategory,
+                  idCategory: categoryRepresentation.idCategory ?? "N/A",
+                  strCategory: categoryRepresentation.strCategory ?? "N/A",
                   strCategoryDescription: categoryRepresentation.strCategoryDescription,
                   strCategoryThumb: categoryRepresentation.strCategoryThumb)
     }
