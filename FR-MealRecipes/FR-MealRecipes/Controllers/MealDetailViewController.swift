@@ -11,6 +11,8 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
     
     let apiController = APIController()
     var meal: Meal?
+    // Tap gesture recognizers
+    let tap = UITapGestureRecognizer()
     var index = 52
     
     // MARK: - View Objects
@@ -188,6 +190,9 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
         }
         if let youtube = fetchedMeal.strYoutube {
             if !youtube.isEmpty {
+                strYoutubeLabel.isUserInteractionEnabled = true
+                tap.addTarget(self, action: #selector(launchYoutube))
+                strYoutubeLabel.addGestureRecognizer(tap)
                 self.stackView.addArrangedSubview(self.strYoutubeLabel)
                 self.strYoutubeLabel.text = "Youtube: \(youtube)"
                 self.strYoutubeLabel.numberOfLines = 2
@@ -348,5 +353,12 @@ class MealDetailViewController: UIViewController, UIScrollViewDelegate {
             self.strInstructionsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 0.8),
             self.strInstructionsView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
         ])
+    }
+   
+    @objc
+    func launchYoutube() {
+        guard let link = meal?.strYoutube else { return }
+        guard let url: URL = URL(string: link) else { return }
+        UIApplication.shared.open(url)
     }
 }
