@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		112C99EE26F4F8DF00BDBBAE /* KeyboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 112C99ED26F4F8DF00BDBBAE /* KeyboardHelper.swift */; };
 		11408BFC26E2CD20001E74A0 /* MealDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11408BFB26E2CD20001E74A0 /* MealDetailViewController.swift */; };
 		11B77D0226DD585A0080F6FB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D0126DD585A0080F6FB /* AppDelegate.swift */; };
 		11B77D0426DD585A0080F6FB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B77D0326DD585A0080F6FB /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		112C99ED26F4F8DF00BDBBAE /* KeyboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHelper.swift; sourceTree = "<group>"; };
 		11408BFB26E2CD20001E74A0 /* MealDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailViewController.swift; sourceTree = "<group>"; };
 		11B77CFE26DD585A0080F6FB /* FR-MealRecipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FR-MealRecipes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11B77D0126DD585A0080F6FB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			children = (
 				11B77D3726E25F6F0080F6FB /* ImageViewHelper.swift */,
 				11B77D3926E260C70080F6FB /* AlertHelper.swift */,
+				112C99ED26F4F8DF00BDBBAE /* KeyboardHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			files = (
 				11B77D2C26DE41FE0080F6FB /* Meal+Convenience.swift in Sources */,
 				11B77D2926DE39D20080F6FB /* CategoryRepresentation.swift in Sources */,
+				112C99EE26F4F8DF00BDBBAE /* KeyboardHelper.swift in Sources */,
 				11B77D0C26DD585B0080F6FB /* FR_MealRecipes.xcdatamodeld in Sources */,
 				11B77D3A26E260C70080F6FB /* AlertHelper.swift in Sources */,
 				11B77D3826E25F6F0080F6FB /* ImageViewHelper.swift in Sources */,
@@ -363,14 +367,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = WMWTV546RX;
 				INFOPLIST_FILE = "FR-MealRecipes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.AlphaGradeInc.FR-MealRecipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -384,14 +388,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = WMWTV546RX;
 				INFOPLIST_FILE = "FR-MealRecipes/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "tech.AlphaGradeInc.FR-MealRecipes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

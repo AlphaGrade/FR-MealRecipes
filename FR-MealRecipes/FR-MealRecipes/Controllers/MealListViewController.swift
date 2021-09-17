@@ -69,6 +69,7 @@ class MealListViewController: UIViewController {
         }
         tableView.delegate = self
         tableView.dataSource = self
+        hideKeyboardWhenTappedAround()
     }
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
